@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  section#wrapper
+    h2 Basic Structure
+    section
+      p
+        span This is a span within a p within a div!
+
+  - var name = "Lenny"
+  h1 Hello #{name}!
+
+  - users = ['Pengiun', 'Monkey', 'Lemur']
+  - for user in users
+    p= user
+
+  ul
+    - for user in users
+      li #{user}
+
+  - people = { first_name: 'John', last_name: 'Doe'}
+  ol
+    - for key, val in people
+      li #{key}: #{val}
+
+
+  - awake = true
+  - if (awake)
+    p You are awake!
+  - else
+    p You are sleeping
+
+  // mixins are like functions to reuse code
+  mixin m_colors(colors)
+    ul
+      for color in colors
+        li= color
+
+  - colors = ['blue','red','green']
+  mixin m_colors(colors)
+  - more_colors = ['purple','orange']
+  mixin m_colors(more_colors)
+
+  script.
+    alert('some inline JS')
+
+  include includes/footer

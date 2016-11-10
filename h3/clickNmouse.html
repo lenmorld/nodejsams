@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+	<script>
+		var target = document.getElementById("target");
+
+		$(document).ready( function() {
+			$('#click-trigger').click( function () {
+				alert("You clicked button");
+			});
+
+			$('p').mouseover( function () {
+				alert(" you moused over the paragraph")
+			});
+		});
+
+	</script>
+</head>
+
+
+<body>
+
+	<button id="click-trigger">Click me</button>
+	<p>Move over your mouse here in this paragraph</p>
+
+</body>
+
+
+</html>
