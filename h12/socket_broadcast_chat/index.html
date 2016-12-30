@@ -1,0 +1,58 @@
+<!-- CLIENT SIDE of Socket.io-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Socket.IO Example</title>
+  </head>
+  <body>
+    <h1>Socket.IO Example</h1>
+    <h3>Number of users</h3>
+    <div id="count"></div>
+
+    <form id="message-form" action="#">
+      <textarea id="message" rows="4" cols="30"></textarea>
+      <input type="submit" value="Send Message"/>
+    </form>
+
+    <div id="chat_messages"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io.connect('http://127.0.0.1:3000');
+      var message = document.getElementById("message");
+
+      // SEND DATA TO SERVER
+      $(message.form).submit(function () {
+          alert("submit");
+          socket.emit('message', {text: message.value});
+          return false;       // important so form is not submitted in the browser window
+      });
+
+
+      var count = document.getElementById("count");
+      var chat_messages = document.getElementById("chat_messages");
+
+      //do this when receive 'users' data
+      socket.on('users', function(data) {                 // receive data from server
+            console.log('Got update from the server');
+            console.log('There are ' + data.number + ' users');
+            count.innerHTML = data.number;
+      });
+
+      
+      // RECEIVE DATA FROM SERVER
+      //do this when receive messages data
+      socket.on('server_message', function(data) {
+          console.log(data);
+          // $('form').after('<p>' + data.text + '</p>');
+          chat_messages.innerHTML = data.text; 
+      });
+
+    </script>
+
+  </body>
+</html>
