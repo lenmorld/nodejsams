@@ -55,6 +55,9 @@ io.sockets.on('connection', function(socket) {
 			nicknames.splice(nicknames.indexOf(socket.nickname), 1);
 		}
 		console.log(nicknames);
+
+		// broadcast list of nicknames
+		io.sockets.emit('nicknames', nicknames);
 	});
 
 
