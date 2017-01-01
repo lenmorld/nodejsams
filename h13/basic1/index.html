@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Socket.IO Express Example</title>
+  </head>
+  <body>
+    <h1>Socket.IO Express Example</h1>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // listen for welcome event and write to console
+
+        var socket = io.connect();
+        socket.on('welcome', function(data) {
+          console.log(data.text);
+        })
+    </script>
+  </body>
+</html>

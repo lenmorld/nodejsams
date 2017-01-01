@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Socket.IO Express Example</title>
+  </head>
+
+  <style type="text/css">
+      #send_message {
+        display: none;
+      }
+  </style>
+
+  <body>
+    <h1>Socket.IO Express Example</h1>
+
+    <form id="set-nickname">
+      <label for='nickname'>Nickname:</label>
+      <input type="text" id='nickname' />
+      <input type="submit"/>
+    </form>
+
+    <h4>LOGGED IN users</h4>
+    <section id="nicknames"></section>
+
+    <form id="send_message">
+      <textarea row="4" cols="28" id="message"></textarea>
+      <input type="submit" value="SEND"/>
+    </form>
+
+    <div id="messages"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // listen for welcome event and write to console
+
+        var socket = io.connect();
+        socket.on('welcome', function(data) {
+          console.log(data.text);
+        });
+
+
+        // when receive broadcast nicknames
+        socket.on('nicknames', function(data) {
+            $('#nicknames').empty().append($('<ul>'));    // attach ul to div
+
+            for (var i=0; i < data.length; i++) {
+              $('#nicknames ul').append('<li>' + data[i] + '</li>');
+            }
+        });
+
+
+        //when recive chat broadcast, put in div
+        socket.on('user message', function (data) {
+            $('#messages').append('<p><strong>' + data.nick + ':'  +'</strong>' + data.message + '</p>')
+        });
+
+
+        // anonymous jQuery wrap function
+        $(function () {
+            var nickname = $('#nickname');
+            var setNicknameForm = $('#set-nickname');
+
+            // do when form is submitted
+            setNicknameForm.submit(function(event) {
+                event.preventDefault();     //prevent submission, same to return false;
+
+                // emit with CALLBACK
+                // pass nickname to server from input val
+                socket.emit('nickname', nickname.val(), function(data) {
+                    if (data) {
+                      console.log('Nickname set successfully');
+                      setNicknameForm.hide();   // jquery hide
+
+                      //show chat
+                      $('#send_message').show();
+
+                    }
+                    else {
+                      setNicknameForm.prepend('<p>Sorry - that nickname is already taken. </p>');
+
+                      //show chat
+                      $('#send_message').hide();
+                    }
+                });     
+            });
+
+            // chat box functions
+            $('#send_message').submit(function(event) {
+                event.preventDefault();         // similar to return false
+                socket.emit('user message', $('#message').val());
+                $('#message').val('').focus();      //empty after send and put cursor here
+            })  
+
+
+        });
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
