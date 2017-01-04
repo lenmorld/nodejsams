@@ -13,7 +13,7 @@ using Node.js, Socket.IO,a nd jQuery
 
 Client
 
-` 
+```javascript 
 	// emit with CALLBACK
 	// pass nickname to server from input val
 	socket.emit('nickname', nickname.val(), function(data) {
@@ -32,12 +32,12 @@ Client
 	      $('#send_message').hide();
 	    }
 	}); 
-`
+```
 
 
 Server
 
-`
+```javascript
 	// when client sends nickname, add CALLBACK return
 	socket.on('nickname', function(data, callback) {
 
@@ -55,7 +55,7 @@ Server
 		// broadcast list of nicknames
 		io.sockets.emit('nicknames', nicknames);
 	});
-`
+```
 
 
 - still needs a little design
