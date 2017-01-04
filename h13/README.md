@@ -15,6 +15,15 @@
 - saves nicknames on server
 
 - **Callbacks** allow server to return some info to client after message has been sent
+	 this allows client to know whether nickname was already in the nickname list and act accordingly
+
+Logic:
+1. User submits nickname from client side
+2. Server receives nickname, checks if exist
+3. If exists, server issues a callback that says false
+4. else, true
+5. client receives callback data and informs user
+
 
 Client
 
