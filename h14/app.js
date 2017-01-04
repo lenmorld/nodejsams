@@ -49,8 +49,6 @@ twit.stream('statuses/filter', {track: ['cat', 'dog']}, function(stream) {
 				// 	text: data.text
 				// });
 
-				
-				
 				// if cat tweet
 				if (data.text.match(/cat/i)) {
 					cat++;

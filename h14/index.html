@@ -106,7 +106,11 @@
                 .prepend('<li class="list-group-item">' + 
                   '<img src="' + data.avatar + '"/>' +
                  + '<strong>' + data.user + '</strong> : ' + data.text + 
-                    '</li>'); 
+                    '</li>');
+
+            var percent = (data.cat_count / data.total_count) * 100;
+            $('#cat').html("Cat: " + percent  + " %" );
+            $('#cat').css("width", percent + '%');            
         });
 
         socket.on('dog', function (data) {
@@ -115,24 +119,11 @@
                   '<img src="' + data.avatar + '"/>' +
                  + '<strong>' + data.user + '</strong> : ' + data.text + 
                     '</li>'); 
-        });
 
-
-
-
-        socket.on('cat', function(data) {
-            var percent = (data.cat_count / data.total_count) * 100;
-            $('#cat').html("Cat: " + percent  + " %" );
-            $('#cat').css("width", percent + '%');
-
-        });    
-
-        socket.on('dog', function(data) {
             var percent = (data.dog_count / data.total_count) * 100;
             $('#dog').html("Dog: " +  percent  + " %" );
             $('#dog').css("width", percent + '%');
-        });  
-
+        });
 
             // $('#stats').html("Cat: " + data.cat_count + "_" + data.cat_count / data.total_count + 
             //                  "<br/>Dog: " + data.dog_count + "_" + data.dog_count / data.total_count + 
