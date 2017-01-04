@@ -2,6 +2,10 @@
 
 ### h13/messaging using Node.js, Socket.IO,and jQuery
 
+##### based on Sams Teach Yourself Node.js in 24 Hours - George Ornbo
+
+##### https://github.com/shapeshed/nodejsbook.io.examples 
+
 - final version so far is messaging
 - client-server architecture
 
