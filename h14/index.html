@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Cats vs Dogs Tweets _ Socket.IO Twitter</title>
+
+    <style>
+        #cat {
+            background-color: orange;
+            color: white;
+
+        }
+        #dog {
+            background-color: brown;
+            color: white;
+        }
+
+
+        .tweet {
+
+        }
+
+        img {
+          padding: 5px;
+          margin-right: 5px;
+          /*margin-bottom: 5px;*/
+          /*float: left;*/
+        }
+
+        li:nth-child(even) {
+          background: #f8f5f6;
+        }
+
+    </style>
+
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Cats vs Dogs Tweets</h1>
+
+      <!-- <div id="welcome">welcome</div> -->
+      
+      <div class="row">
+        <div id="cat"></div>
+      </div>
+      <div class="row">  
+        <div id="dog"></div>
+      </div>
+        
+      <!-- <div id="total"></div> -->
+
+      <section id="stream">
+        <div class="row">
+            <div id="cat_tweets" class="col-md-6">
+                 <h2>CAT TWEETS</h2>   
+                 <ul class="list-group"></ul>
+            </div>
+
+            <div id="dog_tweets" class="col-md-6">
+                <h2>DOG TWEETS</h2>
+                <ul class="list-group"></ul>
+            </div>
+        </div>
+      </section>
+
+
+
+
+
+
+    </div>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script>
+      var socket = io.connect();
+
+      $(document).ready(function() {
+
+        socket.on('welcome', function(data) {
+            // console.log(data.text);
+
+            $('#welcome').text(data.text);
+        });
+
+        // socket.on('tweet', function (data) {
+        //   // console.log(data.text);
+        //   // append adds at the end
+        //     $('#tweets').prepend("<li>" + data.user + ":" + data.text + "</li>");
+        // });
+
+        socket.on('cat', function (data) {
+           $('#cat_tweets ul')
+                .prepend('<li class="list-group-item">' + 
+                  '<img src="' + data.avatar + '"/>' +
+                 + '<strong>' + data.user + '</strong> : ' + data.text + 
+                    '</li>'); 
+        });
+
+        socket.on('dog', function (data) {
+           $('#dog_tweets ul')
+                .prepend('<li class="list-group-item">' + 
+                  '<img src="' + data.avatar + '"/>' +
+                 + '<strong>' + data.user + '</strong> : ' + data.text + 
+                    '</li>'); 
+        });
+
+
+
+
+        socket.on('cat', function(data) {
+            var percent = (data.cat_count / data.total_count) * 100;
+            $('#cat').html("Cat: " + percent  + " %" );
+            $('#cat').css("width", percent + '%');
+
+        });    
+
+        socket.on('dog', function(data) {
+            var percent = (data.dog_count / data.total_count) * 100;
+            $('#dog').html("Dog: " +  percent  + " %" );
+            $('#dog').css("width", percent + '%');
+        });  
+
+
+            // $('#stats').html("Cat: " + data.cat_count + "_" + data.cat_count / data.total_count + 
+            //                  "<br/>Dog: " + data.dog_count + "_" + data.dog_count / data.total_count + 
+            //                  "<br/>Total: " + data.total_count);
+        // });
+
+      });
+
+    </script>
+  </body>
+</html>
