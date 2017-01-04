@@ -1,5 +1,6 @@
-CHAT SERVER - h13/messaging
-using Node.js, Socket.IO,a nd jQuery
+# CHAT SERVER 
+
+### h13/messaging using Node.js, Socket.IO,and jQuery
 
 - final version so far is messaging
 - client-server architecture
