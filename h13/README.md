@@ -6,6 +6,8 @@
 
 ##### https://github.com/shapeshed/nodejsbook.io.examples 
 
+objective: send data from clients to Socket.IO server and broadcast it to other clients
+
 - final version so far is messaging
 - client-server architecture
 
